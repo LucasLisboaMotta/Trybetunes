@@ -31,10 +31,15 @@ export default class Header extends Component {
           : <h1 data-testid="header-user-name">{ userName }</h1> }
         <nav>
           <ul>
-            <Link to="/search"><li>Search</li></Link>
+            <Link to="/search" data-testid="link-to-search"><li>Search</li></Link>
             <Link to="/album/:id"><li>Album</li></Link>
-            <Link to="/favorites"><li>Favorites</li></Link>
-            <Link to="/profile"><li>Profile</li></Link>
+            <Link
+              to="/favorites"
+              data-testid="link-to-favorites"
+            >
+              <li>Favorites</li>
+            </Link>
+            <Link to="/profile" data-testid="link-to-profile"><li>Profile</li></Link>
             <Link to="/profile/edit"><li>Profile Edit</li></Link>
           </ul>
         </nav>
