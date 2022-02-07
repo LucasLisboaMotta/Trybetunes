@@ -12,7 +12,9 @@ export default class Card extends Component {
         to={ `/album/${collectionId}` }
       >
         <div>
-          {`${artistName} // ${collectionName}`}
+          <p>
+            {`${artistName} // ${collectionName}`}
+          </p>
           <img alt={ collectionName } src={ artworkUrl100 } />
         </div>
       </Link>
@@ -21,5 +23,10 @@ export default class Card extends Component {
 }
 
 Card.propTypes = {
-  obj: PropTypes.objectOf(PropTypes.string).isRequired,
+  obj: PropTypes.shape({
+    artistName: PropTypes.string,
+    collectionId: PropTypes.string,
+    artworkUrl100: PropTypes.string,
+    collectionName: PropTypes.string,
+  }).isRequired,
 };

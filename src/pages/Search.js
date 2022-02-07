@@ -18,7 +18,7 @@ export default class Search extends Component {
 
   mapAlbuns = (artist) => {
     if (artist.length === 0) return <p>Nenhum álbum foi encontrado</p>;
-    return artist.map((element) => <Card key={ element.artistId } obj={ element } />);
+    return artist.map((element) => <Card key={ element.collectionId } obj={ element } />);
   }
 
   inputChange = ({ target: { value } }) => {
@@ -33,7 +33,6 @@ export default class Search extends Component {
         artist[index][key] = `${values}`;
       });
     });
-    console.log(artist);
     this.setState({ loading: false, inputValue: '', artist, search: value });
   }
 
