@@ -22,6 +22,7 @@ export default class Album extends Component {
   renderMusic = async () => {
     this.setState({ loading: true });
     const { props: { match: { params: { id } } } } = this;
+    if (id === ':id') return;
     const album = await getMusics(id);
     console.log(album);
     this.setState({ loading: false, album });
@@ -36,10 +37,9 @@ export default class Album extends Component {
         {album && <h2 data-testid="artist-name">{album[0].artistName}</h2>}
         {album && <h3 data-testid="album-name">{album[0].collectionName}</h3>}
         {album && album.filter(({ trackId }) => trackId)
-          .map(({ trackName, previewUrl }) => (<MusicCard
-            key={ previewUrl }
-            trackName={ trackName }
-            previewUrl={ previewUrl }
+          .map((track) => (<MusicCard
+            key={ track.previewUrl }
+            track={ track }
           />))}
       </div>
     );
