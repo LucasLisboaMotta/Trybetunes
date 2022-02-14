@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Carregando from './Carregando';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 export default class MusicCard extends Component {
   constructor() {
     super();
 
     this.state = {
-      check: false,
       loading: false,
+      check: false,
+      current: false,
     };
   }
 
-  inputChange = async (check, track) => {
+  inputChange = async (checked, track) => {
     this.setState({ loading: true });
-    await addSong(track);
-    this.setState({ loading: false, check: !check });
+    if (checked) {
+      await addSong(track);
+      this.setState({ current: true, check: true });
+    } else {
+      await removeSong(track);
+      this.setState({ current: false, check: true });
+    }
+    this.setState({ loading: false, check: true });
   }
 
   render() {
     const { track, favorites } = this.props;
     const { trackName, previewUrl, trackId } = track;
-    const { check, loading } = this.state;
+    const { check, loading, current } = this.state;
+    const currentCheck = check ? current : favorites;
     return (
       <div>
         <p>{ trackName }</p>
@@ -36,9 +44,9 @@ export default class MusicCard extends Component {
           <input
             name={ trackName }
             type="checkbox"
-            checked={ favorites }
+            checked={ currentCheck }
             data-testid={ `checkbox-music-${trackId}` }
-            onChange={ () => this.inputChange(check, track) }
+            onChange={ ({ target: { checked } }) => this.inputChange(checked, track) }
           />
         </label>
         {loading && <Carregando />}
