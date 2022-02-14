@@ -36,7 +36,7 @@ export default class MusicCard extends Component {
           <input
             name={ trackName }
             type="checkbox"
-            value={ favorites }
+            checked={ favorites }
             data-testid={ `checkbox-music-${trackId}` }
             onChange={ () => this.inputChange(check, track) }
           />
